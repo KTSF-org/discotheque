@@ -5,8 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="db357037-4e5e-407f-b4a3-97b2b2593fac" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/modele/DisqueVinyle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modele/CompactDisque.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modele/CompactDisque.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/exceptions/AlbumDejaExistantException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/exceptions/AlbumIntrouvableException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/exceptions/DiscothequeVideException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/exceptions/SaisieInvalideException.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +23,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Exception" />
       </list>
     </option>
   </component>
@@ -107,7 +114,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "simon",
+    "git-widget-placeholder": "romain",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
