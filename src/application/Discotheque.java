@@ -59,6 +59,10 @@ public class Discotheque {
         throw new AlbumIntrouvableException("L'album " + nom + " est introuvable.");
     }
 
+    public void viderDiscotheque() {
+        discotheque.clear();
+    }
+
 
     // Assesseurs
 
