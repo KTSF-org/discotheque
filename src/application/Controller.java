@@ -45,13 +45,24 @@ public class Controller {
             }
             int quantite = saisieInt("Saisissez le nombre de CD :");
 
-            if(typeAlbum == 1)
-                CompactDisque album = ajouterCompactDisque(nomAlbum, nomAuteur, dAnneeAlbum, quantite);
 
+            Album album = null;
+            if(typeAlbum == 1) {
+                album = ajouterCompactDisque(nomAlbum, nomAuteur, dAnneeAlbum, quantite);
+            } else if (typeAlbum == 2) {
+                album = ajouterDisqueVinyle(nomAlbum, nomAuteur, dAnneeAlbum, quantite);
 
-            discotheque.ajouterAlbum(album);
+            } else {
+                album = ajouterFichierNumerique(nomAlbum, nomAuteur, dAnneeAlbum, quantite);
+            }
 
+            if(album!=null) {
+                discotheque.ajouterAlbum(album);
+                System.out.println("Album ajouté avec succès !");
+            }
 
+        } catch (SaisieInvalideException sie) {
+            System.err.println(sie.getMessage().toString());
         }
     }
 
@@ -61,7 +72,10 @@ public class Controller {
             String type = saisieNom("Saisissez le type de CD --> Simple ou Double :");
 
             return new CompactDisque(nomAlbum, nomAuteur, dAnneeAlbum, quantite, numero, type);
+        } catch (SaisieInvalideException e) {
+            System.err.println(e.getMessage().toString());
         }
+        return null;
     }
 
     public DisqueVinyle ajouterDisqueVinyle(String nom, String auteur, LocalDate date, int quantite) {
