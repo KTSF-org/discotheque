@@ -56,7 +56,5 @@ public abstract class Album {
                 '}';
     }
 
-    public abstract String getSupport() {
-
-    }
+    public abstract String getSupport();
 }
