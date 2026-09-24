@@ -59,6 +59,11 @@ public class Discotheque {
         throw new AlbumIntrouvableException("L'album " + nom + " est introuvable.");
     }
 
+    public void modifierQuantitéAlbum(String n,int q){
+        modele.Album a = rechercherAlbum(n);
+        a.setQuantite(q);
+    }
+
     public void viderDiscotheque() {
         discotheque.clear();
     }

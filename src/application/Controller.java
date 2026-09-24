@@ -9,10 +9,12 @@ import modele.CompactDisque;
 import javax.swing.plaf.InsetsUIResource;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 import modele.DisqueVinyle;
 import modele.FichierNumerique;
 
 import java.time.LocalDate;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Controller {
@@ -26,13 +28,14 @@ public class Controller {
         System.out.println("2. Lister tous les albums");
         System.out.println("3. Rechercher un album");
         System.out.println("4. Supprimer un album");
+        System.out.println("5. Modifier la quantité d'un album");
         System.out.println("0. Quitter");
     }
 
     public void ajouterAlbum() {
         try {
             int typeAlbum = saisieInt("Type d'album (1 = CD, 2 = Vinyle, 3 = Fichier numérique) :");
-            if(typeAlbum<1 || typeAlbum>3)
+            if (typeAlbum < 1 || typeAlbum > 3)
                 throw new SaisieInvalideException("Veuillez saisir un nombre valide");
             String nomAlbum = saisieNom("Saisissez le nom de l'album :");
             String nomAuteur = saisieNom("Saisissez le nom de l'auteur :");
@@ -40,11 +43,10 @@ public class Controller {
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDate dAnneeAlbum = LocalDate.parse(sAnneeAlbum, formatter);
-            if(dAnneeAlbum.isAfter(LocalDate.now()) || dAnneeAlbum.isBefore(LocalDate.parse("1886-01-01"))) {
+            if (dAnneeAlbum.isAfter(LocalDate.now()) || dAnneeAlbum.isBefore(LocalDate.parse("1886-01-01"))) {
                 throw new SaisieInvalideException("Veuillez saisir une date de sortie valide");
             }
             int quantite = saisieInt("Saisissez le nombre de CD :");
-
 
             Album album = null;
             if(typeAlbum == 1) {
@@ -79,16 +81,26 @@ public class Controller {
     }
 
     public DisqueVinyle ajouterDisqueVinyle(String nom, String auteur, LocalDate date, int quantite) {
-        String numero = saisieNom("Numéro du vinyle :");
-        int taille = saisieInt("Taille du vinyle (diamètre en cm : 17, 25 ou 30) : ");
-        return new DisqueVinyle(nom, auteur, date, quantite, numero, taille);
+        try {
+            String numero = saisieNom("Numéro du vinyle :");
+            int taille = saisieInt("Taille du vinyle (diamètre en cm : 17, 25 ou 30) : ");
+            return new DisqueVinyle(nom, auteur, date, quantite, numero, taille);
+        } catch (SaisieInvalideException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
     public FichierNumerique ajouterFichierNumerique(String nom, String auteur, LocalDate date, int quantite) {
-        String format = saisieNom("Format du fichier : ");
-        double taille = saisieDouble("Taille du fichier (en Mo) : ");
-        int duree = saisieInt("Durée de l'album (en minute) : ");
-        return new FichierNumerique(nom, auteur, date, quantite, format, taille, duree);
+        try {
+            String format = saisieNom("Format du fichier : ");
+            double taille = saisieDouble("Taille du fichier (en Mo) : ");
+            int duree = saisieInt("Durée de l'album (en minute) : ");
+            return new FichierNumerique(nom, auteur, date, quantite, format, taille, duree);
+        } catch (SaisieInvalideException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
     public void afficherDiscotheque() {
@@ -98,12 +110,20 @@ public class Controller {
     public void afficherAlbum() throws AlbumIntrouvableException, DiscothequeVideException {
         String aNom = saisieNom("Veuillez saisir le nom de l'album à afficher");
         modele.Album a = discotheque.rechercherAlbum(aNom);
-        a.toString();
+        System.out.println(a.toString());
     }
 
     public void supprimerAlbum() {
         String nom = saisieNom("Saisir le nom de l'album à supprimer :");
         discotheque.supprimerAlbum(nom);
+    }
+
+    public void modifierQuantiteAlbum(){
+        String nom = saisieNom("Saisir le nom de l'album dont vous voulez modifier la quantité");
+        System.out.println("Saisir la quantité");
+        int qte = scan.nextInt();
+        if(qte<0)throw new SaisieInvalideException("La quantité doit-être supérieur ou égale à 0");
+        discotheque.modifierQuantitéAlbum(nom,qte);
     }
 
     public String saisieNom(String msg) throws SaisieInvalideException {
@@ -128,14 +148,34 @@ public class Controller {
     }
 
     public static int saisieInt(String msg) {
-        System.out.println(msg);
+        Scanner scanner = new Scanner(System.in);
         int nombre = 0;
-        while(nombre==0) {
+        boolean saisieValide = false;
+        System.out.println(msg);
+        while (!saisieValide) {
             try {
-                Scanner scanner = new Scanner(System.in);
                 nombre = scanner.nextInt();
-            } catch (SaisieInvalideException ime) {
-                System.out.println("Veuillez entrer un nombre entier");
+                saisieValide = true;
+            } catch (InputMismatchException ime) {
+                System.out.println("Veuillez entrer un nombre entier valide");
+                scanner.next(); // on vide le jeton invalide du buffer
+            }
+        }
+        return nombre;
+    }
+
+    public static double saisieDouble(String msg) {
+        Scanner scanner = new Scanner(System.in);
+        double nombre = 0.0d;
+        boolean saisieValide = false;
+        System.out.println(msg);
+        while (!saisieValide) {
+            try {
+                nombre = scanner.nextDouble();
+                saisieValide = true;
+            } catch (InputMismatchException ime) {
+                System.out.println("Veuillez entrer un nombre valide");
+                scanner.next(); // on vide le jeton invalide du buffer
             }
         }
         return nombre;
