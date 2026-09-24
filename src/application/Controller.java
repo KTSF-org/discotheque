@@ -17,6 +17,7 @@ public class Controller {
         System.out.println("2. Lister tous les albums");
         System.out.println("3. Rechercher un album");
         System.out.println("4. Supprimer un album");
+        System.out.println("5. Modifier la quantité d'un album");
         System.out.println("0. Quitter");
     }
 
@@ -37,6 +38,14 @@ public class Controller {
     public void supprimerAlbum() {
         String nom = saisieNom("Saisir le nom de l'album à supprimer :");
         discotheque.supprimerAlbum(nom);
+    }
+
+    public void modifierQuantiteAlbum(){
+        String nom = saisieNom("Saisir le nom de l'album dont vous voulez modifier la quantité");
+        System.out.println("Saisir la quantité");
+        int qte = scan.nextInt();
+        if(qte<0)throw new SaisieInvalideException("La quantité doit-être supérieur ou égale à 0");
+        discotheque.modifierQuantitéAlbum(nom,qte);
     }
 
     public String saisieNom(String msg) throws SaisieInvalideException {
