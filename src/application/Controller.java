@@ -127,7 +127,6 @@ public class Controller {
     }
 
     public String saisieNom(String msg) throws SaisieInvalideException {
-        scan.nextLine();
         System.out.println(msg);
         String nom = scan.nextLine();
         if (nom.isEmpty()) {
@@ -137,7 +136,6 @@ public class Controller {
     }
 
     public String saisieDate(String msg) throws SaisieInvalideException {
-        scan.nextLine();
         System.out.print(msg);
         String dateD = scan.nextLine();
         if (dateD.isEmpty()) {
