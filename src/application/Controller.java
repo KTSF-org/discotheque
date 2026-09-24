@@ -41,6 +41,7 @@ public class Controller {
     }
 
     public String saisieNom(String msg) throws SaisieInvalideException {
+        scan.nextLine();
         System.out.println(msg);
         String nom = scan.nextLine();
         if (nom.isEmpty()) {
