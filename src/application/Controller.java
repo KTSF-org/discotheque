@@ -9,6 +9,7 @@ import modele.CompactDisque;
 import javax.swing.plaf.InsetsUIResource;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 import modele.DisqueVinyle;
 import modele.FichierNumerique;
 
@@ -33,7 +34,7 @@ public class Controller {
     public void ajouterAlbum() {
         try {
             int typeAlbum = saisieInt("Type d'album (1 = CD, 2 = Vinyle, 3 = Fichier numérique) :");
-            if(typeAlbum<1 || typeAlbum>3)
+            if (typeAlbum < 1 || typeAlbum > 3)
                 throw new SaisieInvalideException("Veuillez saisir un nombre valide");
             String nomAlbum = saisieNom("Saisissez le nom de l'album :");
             String nomAuteur = saisieNom("Saisissez le nom de l'auteur :");
@@ -41,12 +42,12 @@ public class Controller {
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDate dAnneeAlbum = LocalDate.parse(sAnneeAlbum, formatter);
-            if(dAnneeAlbum.isAfter(LocalDate.now()) || dAnneeAlbum.isBefore(LocalDate.parse("1886-01-01"))) {
+            if (dAnneeAlbum.isAfter(LocalDate.now()) || dAnneeAlbum.isBefore(LocalDate.parse("1886-01-01"))) {
                 throw new SaisieInvalideException("Veuillez saisir une date de sortie valide");
             }
             int quantite = saisieInt("Saisissez le nombre de CD :");
 
-            if(typeAlbum == 1)
+            if (typeAlbum == 1)
 
                 CompactDisque cd = new CompactDisque(nomAlbum, nomAuteur, dAnneeAlbum, quantite)
 
@@ -64,16 +65,26 @@ public class Controller {
     }
 
     public DisqueVinyle ajouterDisqueVinyle(String nom, String auteur, LocalDate date, int quantite) {
-        String numero = saisieNom("Numéro du vinyle :");
-        int taille = saisieInt("Taille du vinyle (diamètre en cm : 17, 25 ou 30) : ");
-        return new DisqueVinyle(nom, auteur, date, quantite, numero, taille);
+        try {
+            String numero = saisieNom("Numéro du vinyle :");
+            int taille = saisieInt("Taille du vinyle (diamètre en cm : 17, 25 ou 30) : ");
+            return new DisqueVinyle(nom, auteur, date, quantite, numero, taille);
+        } catch (SaisieInvalideException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
     public FichierNumerique ajouterFichierNumerique(String nom, String auteur, LocalDate date, int quantite) {
-        String format = saisieNom("Format du fichier : ");
-        double taille = saisieDouble("Taille du fichier (en Mo) : ");
-        int duree = saisieInt("Durée de l'album (en minute) : ");
-        return new FichierNumerique(nom, auteur, date, quantite, format, taille, duree);
+        try {
+            String format = saisieNom("Format du fichier : ");
+            double taille = saisieDouble("Taille du fichier (en Mo) : ");
+            int duree = saisieInt("Durée de l'album (en minute) : ");
+            return new FichierNumerique(nom, auteur, date, quantite, format, taille, duree);
+        } catch (SaisieInvalideException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
     public void afficherDiscotheque() {
