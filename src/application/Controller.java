@@ -30,8 +30,7 @@ public class Controller {
 
     public void afficherAlbum() throws AlbumIntrouvableException, DiscothequeVideException {
         String aNom = saisieNom("Veuillez saisir le nom de l'album à afficher");
-        Discotheque d = new Discotheque();
-        modele.Album a = d.rechercherAlbum(aNom);
+        modele.Album a = discotheque.rechercherAlbum(aNom);
         a.toString();
     }
 
