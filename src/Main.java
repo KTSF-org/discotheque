@@ -20,19 +20,16 @@ public class Main {
 
                 switch (choix) {
                     case 1:
-                        c.ajouterDisque();
+                        c.ajouterAlbum();
                         break;
                     case 2:
-                        c.supprimerDisqueParNom();
-                        break;
-                    case 3:
-                        c.supprimerDisqueParAuteurEtNom();
-                        break;
-                    case 4:
                         c.afficherDiscotheque();
                         break;
-                    case 5:
-                        c.viderDiscotheque();
+                    case 3:
+                        c.afficherAlbum();
+                        break;
+                    case 4:
+                        c.supprimerAlbum();
                         break;
                     case 0:
                         System.out.println("Au revoir !");
