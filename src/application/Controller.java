@@ -31,7 +31,8 @@ public class Controller {
     }
 
     public void supprimerAlbum() {
-        discotheque.viderDiscotheque();
+        String nom = saisieNom("Saisir le nom de l'album à supprimer :");
+        discotheque.supprimerAlbum(nom);
     }
 
     public String saisieNom(String msg) throws SaisieInvalideException {
