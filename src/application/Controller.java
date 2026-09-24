@@ -1,5 +1,7 @@
 package application;
 
+import exceptions.SaisieInvalideException;
+
 import java.util.Scanner;
 
 public class Controller {
@@ -29,5 +31,23 @@ public class Controller {
 
     public void supprimerAlbum() {
 
+    }
+
+    public String saisieNom(String msg) throws SaisieInvalideException {
+        System.out.println(msg);
+        String nom = scan.nextLine();
+        if (nom.isEmpty()) {
+            throw new SaisieInvalideException("saisie invalide");
+        }
+        return nom;
+    }
+
+    public String saisieDate(String msg) throws SaisieInvalideException {
+        System.out.print(msg);
+        String dateD = scan.nextLine();
+        if (dateD.isEmpty()) {
+            throw new SaisieInvalideException("date de l'album non saisie");
+        }
+        return dateD;
     }
 }
