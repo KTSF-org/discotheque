@@ -17,7 +17,7 @@ public class Main {
                 c.afficherMenu();
                 System.out.print("Choix:");
                 choix = Controller.scan.nextInt();
-
+                Controller.scan.nextLine();
                 switch (choix) {
                     case 1:
                         c.ajouterAlbum();
