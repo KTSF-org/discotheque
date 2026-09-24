@@ -42,8 +42,11 @@ public class Controller {
             int quantite = saisieInt("Saisissez le nombre de CD :");
 
             if(typeAlbum == 1)
+                CompactDisque album = ajouterCompactDisque(nomAlbum, nomAuteur, dAnneeAlbum, quantite);
 
-                CompactDisque cd = new CompactDisque(nomAlbum, nomAuteur, dAnneeAlbum, quantite)
+
+            discotheque.ajouterAlbum(album);
+
 
         }
     }
@@ -53,8 +56,7 @@ public class Controller {
             String numero = saisieNom("Saisissez le numéro du CD --> (CD-001) :");
             String type = saisieNom("Saisissez le type de CD --> Simple ou Double :");
 
-            CompactDisque cd = new CompactDisque(nomAlbum, nomAuteur, dAnneeAlbum, quantite, numero, type);
-            discotheque.ajouterAlbum(cd);
+            return new CompactDisque(nomAlbum, nomAuteur, dAnneeAlbum, quantite, numero, type);
         }
     }
 
