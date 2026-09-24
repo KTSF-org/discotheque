@@ -28,6 +28,7 @@ public class Controller {
         System.out.println("2. Lister tous les albums");
         System.out.println("3. Rechercher un album");
         System.out.println("4. Supprimer un album");
+        System.out.println("5. Modifier la quantité d'un album");
         System.out.println("0. Quitter");
     }
 
@@ -47,10 +48,23 @@ public class Controller {
             }
             int quantite = saisieInt("Saisissez le nombre de CD :");
 
-            if (typeAlbum == 1)
+            Album album = null;
+            if(typeAlbum == 1) {
+                album = ajouterCompactDisque(nomAlbum, nomAuteur, dAnneeAlbum, quantite);
+            } else if (typeAlbum == 2) {
+                album = ajouterDisqueVinyle(nomAlbum, nomAuteur, dAnneeAlbum, quantite);
 
-                CompactDisque cd = new CompactDisque(nomAlbum, nomAuteur, dAnneeAlbum, quantite)
+            } else {
+                album = ajouterFichierNumerique(nomAlbum, nomAuteur, dAnneeAlbum, quantite);
+            }
 
+            if(album!=null) {
+                discotheque.ajouterAlbum(album);
+                System.out.println("Album ajouté avec succès !");
+            }
+
+        } catch (SaisieInvalideException sie) {
+            System.err.println(sie.getMessage().toString());
         }
     }
 
@@ -59,9 +73,11 @@ public class Controller {
             String numero = saisieNom("Saisissez le numéro du CD --> (CD-001) :");
             String type = saisieNom("Saisissez le type de CD --> Simple ou Double :");
 
-            CompactDisque cd = new CompactDisque(nomAlbum, nomAuteur, dAnneeAlbum, quantite, numero, type);
-            discotheque.ajouterAlbum(cd);
+            return new CompactDisque(nomAlbum, nomAuteur, dAnneeAlbum, quantite, numero, type);
+        } catch (SaisieInvalideException e) {
+            System.err.println(e.getMessage().toString());
         }
+        return null;
     }
 
     public DisqueVinyle ajouterDisqueVinyle(String nom, String auteur, LocalDate date, int quantite) {
@@ -100,6 +116,14 @@ public class Controller {
     public void supprimerAlbum() {
         String nom = saisieNom("Saisir le nom de l'album à supprimer :");
         discotheque.supprimerAlbum(nom);
+    }
+
+    public void modifierQuantiteAlbum(){
+        String nom = saisieNom("Saisir le nom de l'album dont vous voulez modifier la quantité");
+        System.out.println("Saisir la quantité");
+        int qte = scan.nextInt();
+        if(qte<0)throw new SaisieInvalideException("La quantité doit-être supérieur ou égale à 0");
+        discotheque.modifierQuantitéAlbum(nom,qte);
     }
 
     public String saisieNom(String msg) throws SaisieInvalideException {

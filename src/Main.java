@@ -31,6 +31,9 @@ public class Main {
                     case 4:
                         c.supprimerAlbum();
                         break;
+                    case 5:
+                        c.modifierQuantiteAlbum();
+                        break;
                     case 0:
                         System.out.println("Au revoir !");
                         break;
