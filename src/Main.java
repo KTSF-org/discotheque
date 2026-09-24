@@ -1,3 +1,4 @@
+
 import application.Controller;
 import exceptions.AlbumDejaExistantException;
 import exceptions.AlbumIntrouvableException;
@@ -56,4 +57,5 @@ public class Main {
         Controller.scan.close();
 
     }
+
 }
