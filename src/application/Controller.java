@@ -13,6 +13,7 @@ import modele.DisqueVinyle;
 import modele.FichierNumerique;
 
 import java.time.LocalDate;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Controller {
@@ -82,7 +83,7 @@ public class Controller {
     public void afficherAlbum() throws AlbumIntrouvableException, DiscothequeVideException {
         String aNom = saisieNom("Veuillez saisir le nom de l'album à afficher");
         modele.Album a = discotheque.rechercherAlbum(aNom);
-        a.toString();
+        System.out.println(a.toString());
     }
 
     public void supprimerAlbum() {
@@ -112,14 +113,34 @@ public class Controller {
     }
 
     public static int saisieInt(String msg) {
-        System.out.println(msg);
+        Scanner scanner = new Scanner(System.in);
         int nombre = 0;
-        while(nombre==0) {
+        boolean saisieValide = false;
+        System.out.println(msg);
+        while (!saisieValide) {
             try {
-                Scanner scanner = new Scanner(System.in);
                 nombre = scanner.nextInt();
-            } catch (SaisieInvalideException ime) {
-                System.out.println("Veuillez entrer un nombre entier");
+                saisieValide = true;
+            } catch (InputMismatchException ime) {
+                System.out.println("Veuillez entrer un nombre entier valide");
+                scanner.next(); // on vide le jeton invalide du buffer
+            }
+        }
+        return nombre;
+    }
+
+    public static double saisieDouble(String msg) {
+        Scanner scanner = new Scanner(System.in);
+        double nombre = 0.0d;
+        boolean saisieValide = false;
+        System.out.println(msg);
+        while (!saisieValide) {
+            try {
+                nombre = scanner.nextDouble();
+                saisieValide = true;
+            } catch (InputMismatchException ime) {
+                System.out.println("Veuillez entrer un nombre valide");
+                scanner.next(); // on vide le jeton invalide du buffer
             }
         }
         return nombre;
