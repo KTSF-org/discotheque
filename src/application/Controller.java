@@ -9,6 +9,10 @@ import modele.CompactDisque;
 import javax.swing.plaf.InsetsUIResource;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import modele.DisqueVinyle;
+import modele.FichierNumerique;
+
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Controller {
@@ -56,6 +60,19 @@ public class Controller {
             CompactDisque cd = new CompactDisque(nomAlbum, nomAuteur, dAnneeAlbum, quantite, numero, type);
             discotheque.ajouterAlbum(cd);
         }
+    }
+
+    public DisqueVinyle ajouterDisqueVinyle(String nom, String auteur, LocalDate date, int quantite) {
+        String numero = saisieNom("Numéro du vinyle :");
+        int taille = saisieInt("Taille du vinyle (diamètre en cm : 17, 25 ou 30) : ");
+        return new DisqueVinyle(nom, auteur, date, quantite, numero, taille);
+    }
+
+    public FichierNumerique ajouterFichierNumerique(String nom, String auteur, LocalDate date, int quantite) {
+        String format = saisieNom("Format du fichier : ");
+        double taille = saisieDouble("Taille du fichier (en Mo) : ");
+        int duree = saisieInt("Durée de l'album (en minute) : ");
+        return new FichierNumerique(nom, auteur, date, quantite, format, taille, duree);
     }
 
     public void afficherDiscotheque() {
