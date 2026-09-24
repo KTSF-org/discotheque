@@ -50,6 +50,7 @@ public class Controller {
     }
 
     public String saisieDate(String msg) throws SaisieInvalideException {
+        scan.nextLine();
         System.out.print(msg);
         String dateD = scan.nextLine();
         if (dateD.isEmpty()) {
