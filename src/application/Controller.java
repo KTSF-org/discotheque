@@ -1,5 +1,7 @@
 package application;
 
+import exceptions.AlbumIntrouvableException;
+import exceptions.DiscothequeVideException;
 import exceptions.SaisieInvalideException;
 
 import java.util.Scanner;
@@ -26,8 +28,11 @@ public class Controller {
         discotheque.listerAblums();
     }
 
-    public void afficherAlbum() {
-
+    public void afficherAlbum() throws AlbumIntrouvableException, DiscothequeVideException {
+        String aNom = saisieNom("Veuillez saisir le nom de l'album à afficher");
+        Discotheque d = new Discotheque();
+        modele.Album a = d.rechercherAlbum(aNom);
+        a.toString();
     }
 
     public void supprimerAlbum() {
