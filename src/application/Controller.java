@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class Controller {
     public static Scanner scan = new Scanner(System.in);
+    private Discotheque discotheque = new Discotheque();
 
     // Affiche le menu principal
     public void afficherMenu() {
@@ -22,7 +23,7 @@ public class Controller {
     }
 
     public void afficherDiscotheque() {
-
+        discotheque.listerAblums();
     }
 
     public void afficherAlbum() {
@@ -30,7 +31,7 @@ public class Controller {
     }
 
     public void supprimerAlbum() {
-
+        discotheque.viderDiscotheque();
     }
 
     public String saisieNom(String msg) throws SaisieInvalideException {
