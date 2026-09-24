@@ -1,3 +1,5 @@
+package modele;
+
 import java.time.LocalDate;
 
 public abstract class Album {
@@ -48,7 +50,7 @@ public abstract class Album {
 
     @Override
     public String toString() {
-        return "Album{" +
+        return "modele.Album{" +
                 "nom='" + nom + '\'' +
                 ", auteur='" + auteur + '\'' +
                 ", date=" + date +
