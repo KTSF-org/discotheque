@@ -50,7 +50,7 @@ public abstract class Album {
 
     @Override
     public String toString() {
-        return "'" + nom + "'" + " par " + auteur +
+        return getSupport() + "'" + nom + "'" + " par " + auteur +
                 " sorti le " + date + " (" + quantite + " albums)";
     }
 
