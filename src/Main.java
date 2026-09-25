@@ -15,7 +15,7 @@ public class Main {
         do {
             try {
                 c.afficherMenu();
-                System.out.print("Choix:");
+                System.out.println("Choix : ");
                 choix = Controller.scan.nextInt();
                 Controller.scan.nextLine();
                 switch (choix) {
@@ -42,14 +42,8 @@ public class Main {
                 }
 
                 System.out.println();
-            } catch (AlbumDejaExistantException adee) {
-                System.err.println(adee.getMessage());
-            } catch (AlbumIntrouvableException aie) {
-                System.err.println(aie.getMessage());
-            } catch (DiscothequeVideException dve) {
-                System.err.println(dve.getMessage());
-            } catch (SaisieInvalideException sie) {
-                System.err.println(sie.getMessage());
+            } catch (AlbumDejaExistantException | AlbumIntrouvableException | DiscothequeVideException | SaisieInvalideException  e) {
+                System.err.println(e.getMessage());
             }
 
         } while (choix != 0);
