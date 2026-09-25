@@ -6,14 +6,13 @@ import exceptions.SaisieInvalideException;
 import modele.Album;
 import modele.CompactDisque;
 
-import javax.swing.plaf.InsetsUIResource;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import modele.DisqueVinyle;
 import modele.FichierNumerique;
 
-import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -63,8 +62,8 @@ public class Controller {
                 System.out.println("Album ajouté avec succès !");
             }
 
-        } catch (SaisieInvalideException sie) {
-            System.err.println(sie.getMessage());
+        } catch (SaisieInvalideException | DateTimeParseException e) {
+            System.err.println(e.getMessage());
         }
     }
 
@@ -121,9 +120,9 @@ public class Controller {
     public void modifierQuantiteAlbum(){
         String nom = saisieNom("Saisir le nom de l'album dont vous voulez modifier la quantité");
         System.out.println("Saisir la quantité");
-        int qte = scan.nextInt();
+        int qte = saisieInt("Saisir la quantité :");
         if(qte<0)throw new SaisieInvalideException("La quantité doit-être supérieur ou égale à 0");
-        discotheque.modifierQuantitéAlbum(nom,qte);
+        discotheque.modifierQuantiteAlbum(nom,qte);
     }
 
     public String saisieNom(String msg) throws SaisieInvalideException {
@@ -137,6 +136,7 @@ public class Controller {
 
     public String saisieDate(String msg) throws SaisieInvalideException {
         System.out.print(msg);
+
         String dateD = scan.nextLine();
         if (dateD.isEmpty()) {
             throw new SaisieInvalideException("date de l'album non saisie");
@@ -146,34 +146,33 @@ public class Controller {
     }
 
     public static int saisieInt(String msg) {
-        Scanner scanner = new Scanner(System.in);
         int nombre = 0;
         boolean saisieValide = false;
         System.out.println(msg);
         while (!saisieValide) {
             try {
-                nombre = scanner.nextInt();
+                nombre = scan.nextInt();
+                scan.nextLine();
                 saisieValide = true;
             } catch (InputMismatchException ime) {
                 System.out.println("Veuillez entrer un nombre entier valide");
-                scanner.next(); // on vide le jeton invalide du buffer
+                scan.next(); // on vide le jeton invalide du buffer
             }
         }
         return nombre;
     }
 
     public static double saisieDouble(String msg) {
-        Scanner scanner = new Scanner(System.in);
         double nombre = 0.0d;
         boolean saisieValide = false;
         System.out.println(msg);
         while (!saisieValide) {
             try {
-                nombre = scanner.nextDouble();
+                nombre = scan.nextDouble();
                 saisieValide = true;
             } catch (InputMismatchException ime) {
                 System.out.println("Veuillez entrer un nombre valide");
-                scanner.next(); // on vide le jeton invalide du buffer
+                scan.next(); // on vide le jeton invalide du buffer
             }
         }
         return nombre;
