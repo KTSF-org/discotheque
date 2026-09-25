@@ -26,7 +26,7 @@ public class Discotheque {
     public void ajouterAlbum(Album a) throws AlbumDejaExistantException {
         // Controle si l'album existe déjà
         for (Album album : discotheque)
-            if (album.getNom().equals(a.getNom()))
+            if (album.getNom().equalsIgnoreCase(a.getNom()))
                 throw new AlbumDejaExistantException("L'album " + a.getNom() + " existe déjà.");
         discotheque.add(a);
     }
@@ -42,7 +42,7 @@ public class Discotheque {
         if (discotheque.isEmpty())
             throw new DiscothequeVideException("La discothèque est vide");
         for (Album album : discotheque)
-            if (album.getNom().equals(nom))
+            if (album.getNom().equalsIgnoreCase(nom))
                 return album;
         throw new AlbumIntrouvableException("L'album " + nom + " est introuvable.");
     }
