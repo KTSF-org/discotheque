@@ -48,15 +48,8 @@ public class Discotheque {
     }
 
     public void supprimerAlbum(String nom) throws AlbumIntrouvableException, DiscothequeVideException {
-        if (discotheque.isEmpty())
-            throw new DiscothequeVideException("La discothèque est vide");
-        for (int i = 0; i < discotheque.size(); i++) {
-            if (discotheque.get(i).getNom().equals(nom)) {
-                discotheque.remove(i);
-                return;
-            }
-        }
-        throw new AlbumIntrouvableException("L'album " + nom + " est introuvable.");
+        Album a = rechercherAlbum(nom);
+        discotheque.remove(a);
     }
 
     public void modifierQuantiteAlbum(String n,int q) throws AlbumIntrouvableException, DiscothequeVideException {
