@@ -152,6 +152,7 @@ public class Controller {
         while (!saisieValide) {
             try {
                 nombre = scan.nextInt();
+                scan.nextLine();
                 saisieValide = true;
             } catch (InputMismatchException ime) {
                 System.out.println("Veuillez entrer un nombre entier valide");
