@@ -12,7 +12,7 @@ public class Main {
 
 
         Controller c = new Controller();
-        int choix = 0;
+        int choix = -1;
 
         while (true) {
             try {
@@ -53,4 +53,5 @@ public class Main {
             }
         }
     }
+
 }
