@@ -125,11 +125,20 @@ public class Controller {
     }
 
     public String saisieNom(String msg) throws SaisieInvalideException {
-        System.out.println(msg);
-        String nom = scan.nextLine();
-        if (nom.isEmpty()) {
-            throw new SaisieInvalideException("Saisie invalide");
-        }
+        String nom="";
+
+        do {
+            try {
+                System.out.println(msg);
+                nom = scan.nextLine();
+                if (nom.isEmpty()) {
+                    throw new SaisieInvalideException("Saisie invalide");
+                }
+            }catch (SaisieInvalideException e){
+                System.err.println(e.getMessage());
+            }
+        }while(nom.isEmpty());
+
         return nom;
     }
 
