@@ -130,9 +130,8 @@ public class Controller {
     }
 
     public LocalDate saisieDate(String msg) throws SaisieInvalideException {
-        System.out.print(msg);
-
         while(true) {
+            System.out.print(msg);
             String saisie = scan.nextLine();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             try {
@@ -140,41 +139,33 @@ public class Controller {
                 if (date.isAfter(LocalDate.now()) || date.isBefore(LocalDate.of(1886, 01, 01))) {
                     throw new SaisieInvalideException("Veuillez saisir une année de sortie valide (1886-aujourd'hui)");
                 }
-
                 return date;
             } catch (SaisieInvalideException | DateTimeParseException e) {
-                System.out.println("\u001B[31mDate nom valide --> jj/mm/aaaa (1886-aujourd'hui)\u001B[0m");
-                System.out.print("\u001B[31m" + msg + "\u001B[0m");
+                System.out.println("\u001B[31mDate non valide --> jj/mm/aaaa (1886-aujourd'hui)\u001B[0m");
             }
         }
     }
 
     public static int saisieInt(String msg) {
-        System.out.print(msg);
-
         while (true) {
+            System.out.print(msg);
             String saisie = scan.nextLine();
-
             try {
                 return Integer.parseInt(saisie);
             } catch (NumberFormatException e) {
                 System.out.println("\u001B[31mVeuillez entrer un nombre entier valide\u001B[0m");
-                System.out.print("\u001B[31m" + msg + "\u001B[0m");
             }
         }
     }
 
     public static double saisieDouble(String msg) {
-        System.out.print(msg);
-
         while (true) {
+            System.out.print(msg);
             String saisie = scan.nextLine();
-
             try {
                 return Double.parseDouble(saisie);
             } catch (NumberFormatException e) {
                 System.out.println("\u001B[31mVeuillez entrer un nombre entier valide\u001B[0m");
-                System.out.print("\u001B[31m" + msg + "\u001B[0m");
             }
         }
     }
