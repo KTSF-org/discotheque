@@ -36,9 +36,7 @@ public class CompactDisque extends Album {
 
     @Override
     public String toString() {
-        return "CompactDisque{" + super.toString() +
-                "numero='" + numero + '\'' +
-                ", type='" + type + '\'' +
-                '}';
+        return "CD : " + super.toString() +
+                " | disque numéro " + numero + ", " + type;
     }
 }

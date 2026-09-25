@@ -50,12 +50,8 @@ public abstract class Album {
 
     @Override
     public String toString() {
-        return "modele.Album{" +
-                "nom='" + nom + '\'' +
-                ", auteur='" + auteur + '\'' +
-                ", date=" + date +
-                ", quantite=" + quantite +
-                '}';
+        return "'" + nom + "'" + " par " + auteur +
+                " sorti le " + date + " (" + quantite + " albums)";
     }
 
     public abstract String getSupport();

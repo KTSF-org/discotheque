@@ -81,7 +81,7 @@ public class Discotheque {
 
     @Override
     public String toString() {
-        String s = "\nDiscothèque : ";
+        String s = "\nDiscothèque : \n";
         for (Album a : discotheque) {
             s += a.toString() + "\n";
         }

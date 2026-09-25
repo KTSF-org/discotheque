@@ -41,11 +41,8 @@ public class FichierNumerique extends Album {
 
     @Override
     public String toString() {
-        return "FichierNumerique{" +
-                "format='" + format + '\'' +
-                ", taille=" + taille +
-                ", duree=" + duree +
-                '}';
+        return "Fichier numerique : " + super.toString() +
+                " | format " + format + ", " + taille + "Mo" + ", " + duree + " minutes";
     }
 
     @Override
