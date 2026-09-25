@@ -46,17 +46,11 @@ public class Main {
                 }
 
                 System.out.println();
-            } catch (AlbumDejaExistantException adee) {
-                System.err.println(adee.getMessage());
-            } catch (AlbumIntrouvableException aie) {
-                System.err.println(aie.getMessage());
-            } catch (DiscothequeVideException dve) {
-                System.err.println(dve.getMessage());
-            } catch (SaisieInvalideException sie) {
-                System.err.println(sie.getMessage());
+            } catch (AlbumDejaExistantException | AlbumIntrouvableException | DiscothequeVideException | SaisieInvalideException e) {
+                System.out.println(e.getMessage());
             } catch(InputMismatchException ime){
                 Controller.scan.nextLine();
-                System.out.println("Saisie non valide");
+                System.out.println("\u001B[31mSaisie non valide\u001B[0m");
             }
 
         } while (choix != 0);
