@@ -119,7 +119,6 @@ public class Controller {
 
     public void modifierQuantiteAlbum(){
         String nom = saisieNom("Saisir le nom de l'album dont vous voulez modifier la quantité");
-        System.out.println("Saisir la quantité");
         int qte = saisieInt("Saisir la quantité :");
         if(qte<0)throw new SaisieInvalideException("La quantité doit-être supérieur ou égale à 0");
         discotheque.modifierQuantiteAlbum(nom,qte);
