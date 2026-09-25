@@ -46,7 +46,7 @@ public class Controller {
             if (dAnneeAlbum.isAfter(LocalDate.now()) || dAnneeAlbum.isBefore(LocalDate.parse("1886-01-01"))) {
                 throw new SaisieInvalideException("Veuillez saisir une date de sortie valide");
             }
-            int quantite = saisieInt("Saisissez le nombre de CD :");
+            int quantite = saisieInt("Saisissez le nombre d'album :");
 
             Album album = null;
             if(typeAlbum == 1) {
@@ -64,7 +64,7 @@ public class Controller {
             }
 
         } catch (SaisieInvalideException sie) {
-            System.err.println(sie.getMessage().toString());
+            System.err.println(sie.getMessage());
         }
     }
 
