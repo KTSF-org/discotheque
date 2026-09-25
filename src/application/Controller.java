@@ -45,7 +45,7 @@ public class Controller {
             if (dAnneeAlbum.isAfter(LocalDate.now()) || dAnneeAlbum.isBefore(LocalDate.parse("1886-01-01"))) {
                 throw new SaisieInvalideException("Veuillez saisir une date de sortie valide");
             }
-            int quantite = saisieInt("Saisissez le nombre de CD :");
+            int quantite = saisieInt("Saisissez le nombre d'album :");
 
             Album album = null;
             if(typeAlbum == 1) {
@@ -63,7 +63,7 @@ public class Controller {
             }
 
         } catch (SaisieInvalideException | DateTimeParseException e) {
-            System.err.println(e.getMessage().toString());
+            System.err.println(e.getMessage());
         }
     }
 
@@ -115,22 +115,31 @@ public class Controller {
     public void supprimerAlbum() {
         String nom = saisieNom("Saisir le nom de l'album à supprimer :");
         discotheque.supprimerAlbum(nom);
+        System.out.println("Album supprimé avec succès !");
     }
 
     public void modifierQuantiteAlbum(){
         String nom = saisieNom("Saisir le nom de l'album dont vous voulez modifier la quantité");
-        System.out.println("Saisir la quantité");
         int qte = saisieInt("Saisir la quantité :");
         if(qte<0)throw new SaisieInvalideException("La quantité doit-être supérieur ou égale à 0");
         discotheque.modifierQuantiteAlbum(nom,qte);
     }
 
     public String saisieNom(String msg) throws SaisieInvalideException {
-        System.out.println(msg);
-        String nom = scan.nextLine();
-        if (nom.isEmpty()) {
-            throw new SaisieInvalideException("Saisie invalide");
-        }
+        String nom="";
+
+        do {
+            try {
+                System.out.println(msg);
+                nom = scan.nextLine();
+                if (nom.isEmpty()) {
+                    throw new SaisieInvalideException("Saisie invalide");
+                }
+            }catch (SaisieInvalideException e){
+                System.err.println(e.getMessage());
+            }
+        }while(nom.isEmpty());
+
         return nom;
     }
 
@@ -152,6 +161,7 @@ public class Controller {
         while (!saisieValide) {
             try {
                 nombre = scan.nextInt();
+                scan.nextLine();
                 saisieValide = true;
             } catch (InputMismatchException ime) {
                 System.out.println("Veuillez entrer un nombre entier valide");
