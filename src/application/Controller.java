@@ -38,7 +38,7 @@ public class Controller {
                 throw new SaisieInvalideException("Veuillez saisir un nombre valide");
             String nomAlbum = saisieNom("Saisissez le nom de l'album :");
             String nomAuteur = saisieNom("Saisissez le nom de l'auteur :");
-            LocalDate dAnneeAlbum = saisieDate("Saisissez l'année de l'album jj/mm/aaaa :");
+            String sAnneeAlbum = saisieDate("Saisissez l'année de l'album jj/mm/aaaa :");
 
             int quantite = saisieInt("Saisissez le nombre d'album :");
 
@@ -78,9 +78,6 @@ public class Controller {
         try {
             String numero = saisieNom("Numéro du vinyle :");
             int taille = saisieInt("Taille du vinyle (diamètre en cm : 17, 25 ou 30) : ");
-            if(taille != 17 | taille != 25 | taille != 30) {
-                throw new SaisieInvalideException("Tailles valide : 17, 25 ou 30cm");
-            }
             return new DisqueVinyle(nom, auteur, date, quantite, numero, taille);
         } catch (SaisieInvalideException e) {
             System.out.println(e.getMessage());
@@ -132,53 +129,47 @@ public class Controller {
         return nom;
     }
 
-    public LocalDate saisieDate(String msg) throws SaisieInvalideException {
+    public String saisieDate(String msg) throws SaisieInvalideException {
         System.out.print(msg);
 
-        while(true) {
-            String saisie = scan.nextLine();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            try {
-                LocalDate date = LocalDate.parse(saisie, formatter);
-                if (date.isAfter(LocalDate.now()) || date.isBefore(LocalDate.of(1886, 01, 01))) {
-                    throw new SaisieInvalideException("Veuillez saisir une année de sortie valide (1886-aujourd'hui)");
-                }
-
-                return date;
-            } catch (SaisieInvalideException | DateTimeParseException e) {
-                System.out.println("Date nom valide --> jj/mm/aaaa (1886-aujourd'hui)");
-                System.out.println(msg);
-            }
+        String dateD = scan.nextLine();
+        if (dateD.isEmpty()) {
+            throw new SaisieInvalideException("date de l'album non saisie");
         }
+
+        return dateD;
     }
 
     public static int saisieInt(String msg) {
-        System.out.print(msg);
-
-        while (true) {
-            String saisie = scan.nextLine();
-
+        int nombre = 0;
+        boolean saisieValide = false;
+        System.out.println(msg);
+        while (!saisieValide) {
             try {
-                return Integer.parseInt(saisie);
-            } catch (NumberFormatException e) {
+                nombre = scan.nextInt();
+                scan.nextLine();
+                saisieValide = true;
+            } catch (InputMismatchException ime) {
                 System.out.println("Veuillez entrer un nombre entier valide");
-                System.out.print(msg);
+                scan.next(); // on vide le jeton invalide du buffer
             }
         }
+        return nombre;
     }
 
     public static double saisieDouble(String msg) {
-        System.out.print(msg);
-
-        while (true) {
-            String saisie = scan.nextLine();
-
+        double nombre = 0.0d;
+        boolean saisieValide = false;
+        System.out.println(msg);
+        while (!saisieValide) {
             try {
-                return Double.parseDouble(saisie);
-            } catch (NumberFormatException e) {
-                System.out.println("Veuillez entrer un nombre entier valide");
-                System.out.print(msg);
+                nombre = scan.nextDouble();
+                saisieValide = true;
+            } catch (InputMismatchException ime) {
+                System.out.println("Veuillez entrer un nombre valide");
+                scan.next(); // on vide le jeton invalide du buffer
             }
         }
+        return nombre;
     }
 }

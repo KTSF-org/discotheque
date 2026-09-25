@@ -59,8 +59,8 @@ public class Discotheque {
         throw new AlbumIntrouvableException("L'album " + nom + " est introuvable.");
     }
 
-    public void modifierQuantiteAlbum(String n,int q){
-        modele.Album a = rechercherAlbum(n);
+    public void modifierQuantiteAlbum(String n,int q) throws AlbumIntrouvableException, DiscothequeVideException {
+        Album a = rechercherAlbum(n);
         a.setQuantite(q);
     }
 
@@ -81,7 +81,7 @@ public class Discotheque {
 
     @Override
     public String toString() {
-        String s = "\nDiscothèque : ";
+        String s = "\nDiscothèque : \n";
         for (Album a : discotheque) {
             s += a.toString() + "\n";
         }

@@ -36,8 +36,7 @@ public class DisqueVinyle extends Album {
 
      @Override
      public String toString() {
-          return super.toString()
-                  +", numero = " + numero
-                  +", taille = " + taille;
+          return "Vinyle : " + super.toString() +
+                  " | vinyle numéro " + numero + ", " + taille + "cm";
      }
 }

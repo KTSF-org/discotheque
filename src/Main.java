@@ -5,6 +5,8 @@ import exceptions.AlbumIntrouvableException;
 import exceptions.DiscothequeVideException;
 import exceptions.SaisieInvalideException;
 
+import java.util.InputMismatchException;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -15,7 +17,7 @@ public class Main {
         do {
             try {
                 c.afficherMenu();
-                System.out.println("Choix : ");
+                System.out.print("Choix:");
                 choix = Controller.scan.nextInt();
                 Controller.scan.nextLine();
                 switch (choix) {
@@ -42,8 +44,12 @@ public class Main {
                 }
 
                 System.out.println();
-            } catch (AlbumDejaExistantException | AlbumIntrouvableException | DiscothequeVideException | SaisieInvalideException  e) {
-                System.err.println(e.getMessage());
+            } catch (AlbumDejaExistantException | AlbumIntrouvableException | DiscothequeVideException | SaisieInvalideException e) {
+                System.out.println(e.getMessage());
+            } catch (InputMismatchException ime) {
+                Controller.scan.nextLine();
+                System.out.println("\u001B[31mSaisie non valide\u001B[0m");
+
             }
 
         } while (choix != 0);
