@@ -38,7 +38,7 @@ public class Controller {
                 throw new SaisieInvalideException("Veuillez saisir un nombre valide");
             String nomAlbum = saisieNom("Saisissez le nom de l'album :");
             String nomAuteur = saisieNom("Saisissez le nom de l'auteur :");
-            String sAnneeAlbum = saisieDate("Saisissez l'année de l'album jj/mm/aaaa :");
+            LocalDate dAnneeAlbum = saisieDate("Saisissez l'année de l'album jj/mm/aaaa :");
 
             int quantite = saisieInt("Saisissez le nombre d'album :");
 
@@ -58,7 +58,7 @@ public class Controller {
             }
 
         } catch (SaisieInvalideException | DateTimeParseException e) {
-            System.err.println(e.getMessage().toString());
+            System.err.println(e.getMessage());
         }
     }
 
@@ -69,7 +69,7 @@ public class Controller {
 
             return new CompactDisque(nomAlbum, nomAuteur, dAnneeAlbum, quantite, numero, type);
         } catch (SaisieInvalideException e) {
-            System.err.println(e.getMessage().toString());
+            System.err.println(e.getMessage());
         }
         return null;
     }
@@ -129,47 +129,53 @@ public class Controller {
         return nom;
     }
 
-    public String saisieDate(String msg) throws SaisieInvalideException {
+    public LocalDate saisieDate(String msg) throws SaisieInvalideException {
         System.out.print(msg);
 
-        String dateD = scan.nextLine();
-        if (dateD.isEmpty()) {
-            throw new SaisieInvalideException("date de l'album non saisie");
-        }
+        while(true) {
+            String saisie = scan.nextLine();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            try {
+                LocalDate date = LocalDate.parse(saisie, formatter);
+                if (date.isAfter(LocalDate.now()) || date.isBefore(LocalDate.of(1886, 01, 01))) {
+                    throw new SaisieInvalideException("Veuillez saisir une année de sortie valide (1886-aujourd'hui)");
+                }
 
-        return dateD;
+                return date;
+            } catch (SaisieInvalideException | DateTimeParseException e) {
+                System.out.println("\u001B[31mDate nom valide --> jj/mm/aaaa (1886-aujourd'hui)\u001B[0m");
+                System.out.print("\u001B[31m" + msg + "\u001B[0m");
+            }
+        }
     }
 
     public static int saisieInt(String msg) {
-        int nombre = 0;
-        boolean saisieValide = false;
-        System.out.println(msg);
-        while (!saisieValide) {
+        System.out.print(msg);
+
+        while (true) {
+            String saisie = scan.nextLine();
+
             try {
-                nombre = scan.nextInt();
-                scan.nextLine();
-                saisieValide = true;
-            } catch (InputMismatchException ime) {
-                System.out.println("Veuillez entrer un nombre entier valide");
-                scan.next(); // on vide le jeton invalide du buffer
+                return Integer.parseInt(saisie);
+            } catch (NumberFormatException e) {
+                System.out.println("\u001B[31mVeuillez entrer un nombre entier valide\u001B[0m");
+                System.out.print("\u001B[31m" + msg + "\u001B[0m");
             }
         }
-        return nombre;
     }
 
     public static double saisieDouble(String msg) {
-        double nombre = 0.0d;
-        boolean saisieValide = false;
-        System.out.println(msg);
-        while (!saisieValide) {
+        System.out.print(msg);
+
+        while (true) {
+            String saisie = scan.nextLine();
+
             try {
-                nombre = scan.nextDouble();
-                saisieValide = true;
-            } catch (InputMismatchException ime) {
-                System.out.println("Veuillez entrer un nombre valide");
-                scan.next(); // on vide le jeton invalide du buffer
+                return Double.parseDouble(saisie);
+            } catch (NumberFormatException e) {
+                System.out.println("\u001B[31mVeuillez entrer un nombre entier valide\u001B[0m");
+                System.out.print("\u001B[31m" + msg + "\u001B[0m");
             }
         }
-        return nombre;
     }
 }
