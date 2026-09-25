@@ -115,6 +115,7 @@ public class Controller {
     public void supprimerAlbum() {
         String nom = saisieNom("Saisir le nom de l'album à supprimer :");
         discotheque.supprimerAlbum(nom);
+        System.out.println("Album supprimé avec succès !");
     }
 
     public void modifierQuantiteAlbum(){
