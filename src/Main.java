@@ -42,7 +42,7 @@ public class Main {
                         System.exit(0);
                         break;
                     default:
-                        System.out.println("Choix invalide, veuillez réessayer.");
+                        System.out.println("\u001B[31mChoix invalide, veuillez réessayer.\u001B[0m");
                 }
             } catch (AlbumDejaExistantException | AlbumIntrouvableException | DiscothequeVideException |
                      SaisieInvalideException e) {
